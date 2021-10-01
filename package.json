@@ -1,0 +1,42 @@
+{
+  "name": "2021-10-01",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "@emotion/react": "11.4.0",
+    "@emotion/styled": "11.3.0",
+    "@popperjs/core": "2.9.2",
+    "@react-leaflet/core": "1.1.0",
+    "@types/leaflet": "1.7.2",
+    "babel-polyfill": "6.26.0",
+    "emotion": "11.0.0",
+    "leaflet": "1.7.1",
+    "leaflet.markercluster": "1.5.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-leaflet": "3.2.0",
+    "react-redux": "7.2.4",
+    "react-scripts": "4.0.3",
+    "redux": "4.1.0",
+    "redux-devtools-extension": "2.13.9",
+    "redux-logger": "3.0.6",
+    "redux-thunk": "2.3.0"
+  },
+  "devDependencies": {
+    "@babel/runtime": "7.13.8"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

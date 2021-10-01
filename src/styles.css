@@ -1,0 +1,115 @@
+* {
+  /* border: 1px solid; */
+  padding: 0px;
+  margin: 0px;
+}
+.App {
+  font-family: sans-serif;
+  /* text-align: center; */
+  height: 100vh;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* 
+.leaflet-container {
+  height: 100%;
+} */
+
+.store-cluster {
+  @include size(50px);
+  border-radius: 50%;
+  line-height: 50px;
+  font-size: 14px;
+  /* text-align: center; */
+  font-weight: bold;
+  border: 1.5px solid rgba(#000, 0.7);
+  background-color: rgba(#fff, 0.5);
+}
+
+.popupContainer {
+  display: grid;
+  grid-template-rows: 3fr 2fr 1fr 2fr;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-areas:
+    "main amoutLeft amoutRight"
+    "main tel tel "
+    "update update update"
+    "google google google";
+  /* grid-gap:10px; */
+  /* 
+  border-radius: 0.5rem;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2); */
+}
+
+.popupContainer > span {
+  margin-left: 10px;
+  font-size: 1rem;
+  color: #555;
+}
+.leaflet-popup-content p {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  color: #828282;
+}
+
+.popupContainer > .main {
+  grid-area: main;
+}
+.popupContainer > .amoutLeft {
+  grid-area: amoutLeft;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  color: #828282;
+}
+.popupContainer > .amoutRight {
+  grid-area: amoutRight;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  color: #828282;
+}
+.popupContainer > .tel {
+  grid-area: tel;
+}
+.tel-button {
+  display: block;
+  margin: 10px;
+  border: 1px solid #f2c94c;
+  border-radius: 1.25rem;
+  height: 35px;
+  line-height: 35px;
+  width: 100%;
+  text-align: center;
+}
+.popupContainer > .update {
+  grid-area: update;
+  display: flex;
+  justify-content: flex-end;
+  color: #828282;
+}
+.popupContainer > .google {
+  grid-area: google;
+  /* border:1px solid #f2c94c; */
+  background-color: #f2c94c;
+  border-radius: 1.25rem;
+  margin: 7px;
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  gap: 10px;
+  text-decoration: none;
+  /* align-content: center; */
+}
