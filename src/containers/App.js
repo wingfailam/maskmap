@@ -46,6 +46,7 @@ export default function App() {
   return (
     <AppContainer>
       <Left className="col-4">
+ 
         <Stores />
       </Left>
 

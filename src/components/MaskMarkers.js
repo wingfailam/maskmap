@@ -1,4 +1,3 @@
-// import "bootstrap";\
 import styled from "@emotion/styled";
 import "../styles.css";
 import L from "leaflet";
@@ -9,11 +8,11 @@ import {
   MapContainer,
   TileLayer,
   Marker,
-  Popup
+  Popup,
 } from "react-leaflet";
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { requestShops, receiveShops } from "../actions";
+import { requestShops, receiveShops, fetchShops } from "../actions";
 import { main } from "@popperjs/core";
 
 function createIcon(url) {
@@ -21,7 +20,7 @@ function createIcon(url) {
     iconUrl: url,
     iconSize: [35, 35], // 根據 Icon 的大小自行調整
     iconAnchor: [12, 41],
-    popupAnchor: [1, -34]
+    popupAnchor: [1, -34],
     // shadowSize: [41, 41]
   });
 }
@@ -29,21 +28,17 @@ function createIcon(url) {
 const location_icon = createIcon("https://i.imgur.com/df9q5j6.png");
 
 const MaskMarkers = () => {
+  const mounted = useRef(false);
   const map = useMap();
   const dispatch = useDispatch();
+  const selectedShops = useSelector((state) => state.shops.data);
+
   const selectedStore = useSelector((state) => state.store);
-  // const selectedGeometry = useSelector(
-  //   (state) => state.shops.data.features
-  // ).find((element) => element.properties.id == selectedID).geometry;
-  // console.log(selectedGeometry);
+
   if (Object.entries(selectedStore).length !== 0) {
-    // map.flyTo(selectedStore.geometry.coordinates.reverse(), map.getZoom());
-    // console.log(selectedStore.geometry.coordinates.reverse());
     const coordinates = selectedStore.geometry.coordinates;
     const reversedCoordinates = [coordinates[1], coordinates[0]];
     map.flyTo(reversedCoordinates, 17);
-    // console.log("selectedStore", [coordinates[1],coordinates[0]];
-    // console.log("reversedCoordinates", reversedCoordinates);
   }
   const fetchMask = () => {
     const link =
@@ -54,11 +49,7 @@ const MaskMarkers = () => {
         return data;
       });
   };
-  // const test = () => {
-  //   return <div className="popupContainer">
-  //     <h5></h5>
-  //   </div>;
-  // };
+
   const onEachFeature = (feature, layer) => {
     if (feature.properties && feature.properties.name) {
       layer.bindPopup(
@@ -110,48 +101,40 @@ const MaskMarkers = () => {
           "</a>" +
           "</div>"
       );
-      // layer.markerID = feature.properties.id;
     }
   };
 
   useEffect(() => {
-    const fetchingData = async () => {
-      dispatch(requestShops());
-      const [data] = await Promise.all([fetchMask()]);
-      dispatch(receiveShops(data));
-      // console.log("data", data);
-      // console.log(position);
+    if (mounted.current === false) {
+      mounted.current = true;
+      /* 下面是 componentDidMount*/
 
-      // L.geoJSON(data).addTo(map);
+      dispatch(fetchShops());
 
-      var markers = L.markerClusterGroup();
+      /* 上面是 componentDidMount */
+    } else {
+      /* 下面是componentDidUpdate */
+
+      const markers = L.markerClusterGroup();
 
       markers.addLayer(
-        L.geoJSON(data, {
+        L.geoJSON(selectedShops, {
           pointToLayer: function (feature, latlng) {
             return L.marker(latlng, { icon: location_icon });
           },
-
-          onEachFeature: onEachFeature
+          onEachFeature: onEachFeature,
         })
       );
-
-      // console.log("markers", markers);
-
-      // for (var i = 0; i < data.features.length; i++) {
-
-      //   var name = data.features[i].properties.name;
-
-      //   let lnglat = data.features[i].geometry.coordinates;
-      //   var marker = L.marker(new L.LatLng(lnglat[1], lnglat[0]), { title: name });
-      //   marker.bindPopup(name);
-      //   markers.addLayer(marker);
-      // }
-
       map.addLayer(markers);
+
+      /* 上面是componentDidUpdate */
+    }
+
+    return () => {
+      /* 下面是 componentWillUnmount */
+      /* 上面是 componentWillUnmount */
     };
-    fetchingData();
-  }, []);
+  }, [selectedShops]);
   return 0;
 };
 
