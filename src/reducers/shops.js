@@ -24,15 +24,15 @@ const shops = (
             county: "臺北市",
             town: "松山區",
             cunli: "東勢里",
-            service_periods: "NNNNNNNNNNNNNNNNNNNNY"
+            service_periods: "NNNNNNNNNNNNNNNNNNNNY",
           },
           geometry: {
             type: "Point",
-            coordinates: [121.555235, 25.052137]
-          }
-        }
-      ]
-    }
+            coordinates: [121.555235, 25.052137],
+          },
+        },
+      ],
+    },
   },
   action
 ) => {
@@ -42,7 +42,7 @@ const shops = (
     case types.RECEIVE_SHOPS:
       return Object.assign({}, state, {
         isFetching: false,
-        data: action.data
+        data: action.data,
       });
     default:
       return state;

@@ -8,6 +8,23 @@ const StoresContainer = styled.div`
   overflow: auto;
   padding: 20px;
 `;
+const Lodaer = styled.div`
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #828282; /* Blue */
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
 function distance(lat1, lon1, lat2, lon2, unit) {
   if (lat1 == lat2 && lon1 == lon2) {
     return 0;
@@ -38,33 +55,38 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 const Stores = () => {
   const stores = useSelector((state) => state.shops.data.features);
   const here = useSelector((state) => state.location.location);
-  const storesWithDistance = stores.map((store) => {
-    const temp = store;
-    temp.properties.distance = distance(
-      here.lat,
-      here.lng,
-      store.geometry.coordinates[1],
-      store.geometry.coordinates[0],
-      "K"
-    );
-    return temp;
-  });
-  const sortedStores = storesWithDistance.sort((a, b) => {
-    if (a.properties.distance < b.properties.distance) {
-      return -1;
-    } else if (a.properties.distance > b.properties.distance) {
-      return 1;
-    } else {
-      return 0;
-    }
-  });
 
-  const sortedStoresSlice = sortedStores.slice(0, 15);
-  const result = sortedStoresSlice.map((store) => (
-    // Store(sortedStoresSlice)
-    <Store key={store.properties.id} store={store} />
-  ));
+  if (stores.length !== 1) {
+    const storesWithDistance = stores.map((store) => {
+      const temp = store;
+      temp.properties.distance = distance(
+        here.lat,
+        here.lng,
+        store.geometry.coordinates[1],
+        store.geometry.coordinates[0],
+        "K"
+      );
+      return temp;
+    });
+    const sortedStores = storesWithDistance.sort((a, b) => {
+      if (a.properties.distance < b.properties.distance) {
+        return -1;
+      } else if (a.properties.distance > b.properties.distance) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
 
-  return <StoresContainer>{result}</StoresContainer>;
+    const sortedStoresSlice = sortedStores.slice(0, 15);
+    const result = sortedStoresSlice.map((store) => (
+      // Store(sortedStoresSlice)
+      <Store key={store.properties.id} store={store} />
+    ));
+
+    return <StoresContainer>{result}</StoresContainer>;
+  } else {
+    return <Lodaer />;
+  }
 };
 export default Stores;
