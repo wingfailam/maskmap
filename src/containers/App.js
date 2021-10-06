@@ -9,7 +9,7 @@ import {
   MapContainer,
   TileLayer,
   Marker,
-  Popup
+  Popup,
 } from "react-leaflet";
 import { useRef, useState, useEffect } from "react";
 import LocationMarker from "../components/LocationMarker";
@@ -21,7 +21,7 @@ function createIcon(url) {
     iconUrl: url,
     iconSize: [35, 35], // 根據 Icon 的大小自行調整
     iconAnchor: [12, 41],
-    popupAnchor: [1, -34]
+    popupAnchor: [1, -34],
     // shadowSize: [41, 41]
   });
 }
@@ -46,12 +46,11 @@ export default function App() {
   return (
     <AppContainer>
       <Left className="col-4">
- 
         <Stores />
       </Left>
 
       <MapContainer
-        center={[23.97565, 120.973882]}
+        center={[25.0477541, 121.5140006]}
         zoom={15}
         scrollWheelZoom={true}
         style={{ flex: 8 }}

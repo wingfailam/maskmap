@@ -59,7 +59,12 @@ const LocationMarker = () => {
   return location === null ? null : (
     <div>
       <Marker ref={markerRef} position={location} icon={location_icon_blue}>
-        <Popup>目前位置</Popup>
+        <Popup>
+          {JSON.stringify(location) ===
+          JSON.stringify({ lat: 25.0477541, lng: 121.5140006 })
+            ? "預設位置"
+            : "目前位置"}
+        </Popup>
       </Marker>
     </div>
   );
