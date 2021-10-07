@@ -12,7 +12,7 @@ import {
 } from "react-leaflet";
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { requestShops, receiveShops, fetchShops } from "../actions";
+import { requestShops, receiveShops, fetchShops, setMakers } from "../actions";
 import { main } from "@popperjs/core";
 
 function createIcon(url) {
@@ -29,26 +29,11 @@ const location_icon = createIcon("https://i.imgur.com/df9q5j6.png");
 
 const MaskMarkers = () => {
   const mounted = useRef(false);
+  const selectedStoreMounted = useRef(false);
   const map = useMap();
   const dispatch = useDispatch();
   const selectedShops = useSelector((state) => state.shops.data);
-
   const selectedStore = useSelector((state) => state.store);
-
-  if (Object.entries(selectedStore).length !== 0) {
-    const coordinates = selectedStore.geometry.coordinates;
-    const reversedCoordinates = [coordinates[1], coordinates[0]];
-    map.flyTo(reversedCoordinates, 17);
-  }
-  const fetchMask = () => {
-    const link =
-      "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json";
-    return fetch(link)
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      });
-  };
 
   const onEachFeature = (feature, layer) => {
     if (feature.properties && feature.properties.name) {
@@ -116,16 +101,19 @@ const MaskMarkers = () => {
       /* 下面是componentDidUpdate */
 
       const markers = L.markerClusterGroup();
-
       markers.addLayer(
         L.geoJSON(selectedShops, {
           pointToLayer: function (feature, latlng) {
-            return L.marker(latlng, { icon: location_icon });
+            return L.marker(latlng, {
+              icon: location_icon,
+            });
           },
           onEachFeature: onEachFeature,
         })
       );
       map.addLayer(markers);
+      dispatch(setMakers(markers));
+      console.log("map.addLayer(markers);", markers);
 
       /* 上面是componentDidUpdate */
     }
@@ -135,6 +123,92 @@ const MaskMarkers = () => {
       /* 上面是 componentWillUnmount */
     };
   }, [selectedShops]);
+
+  useEffect(() => {
+    let selectedStoreMarker;
+    if (selectedStoreMounted.current === false) {
+      selectedStoreMounted.current = true;
+      /* 下面是 componentDidMount*/
+
+      /* 上面是 componentDidMount */
+    } else {
+      /* 下面是componentDidUpdate */
+      /* 上面是componentDidUpdate */
+    }
+
+    if (selectedStore.properties && selectedStore.properties.name) {
+      const coordinates = selectedStore.geometry.coordinates;
+      const reversedCoordinates = [coordinates[1], coordinates[0]];
+      map.flyTo(reversedCoordinates, 17);
+
+      const popup = () =>
+        "<div class='popupContainer'>" +
+        "<div class='main'>" +
+        "<h5>" +
+        selectedStore.properties.name +
+        "</h5>" +
+        "<p>" +
+        selectedStore.properties.address +
+        "</p>" +
+        "<p>" +
+        selectedStore.properties.note +
+        "</p>" +
+        "<p>" +
+        selectedStore.properties.phone +
+        "</p>" +
+        "</div>" +
+        "<div class='amoutLeft'>" +
+        "<img src='../svgs/child.svg' width='50px' height='50px'/>" +
+        "<h4>" +
+        selectedStore.properties.mask_child +
+        "</h4>" +
+        "</div>" +
+        "<div class='amoutRight'>" +
+        "<img src='../svgs/adult.svg' width='50px' height='50px'/>" +
+        "<h4>" +
+        selectedStore.properties.mask_adult +
+        "</h4>" +
+        "</div>" +
+        "<div class='tel'>" +
+        "<a class='tel-button' href='tel:+886" +
+        selectedStore.properties.phone +
+        "'>" +
+        "<img src='../svgs/tel.svg' width='25px' height='25px'/>" +
+        "</a>" +
+        "</div>" +
+        "<div class='update'>" +
+        "更新時間：" +
+        selectedStore.properties.updated +
+        "</div>" +
+        "<a class='google' href='https://www.google.com/maps/search/" +
+        selectedStore.properties.name +
+        "%20" +
+        selectedStore.properties.address +
+        "' target='_blank'>" +
+        "<img src='../svgs/vecotr.svg' width='20px' height='20px' />" +
+        " 規劃路線" +
+        "</a>" +
+        "</div>";
+      selectedStoreMarker = L.marker(reversedCoordinates, {
+        icon: location_icon,
+      })
+        .addTo(map)
+        .bindPopup(popup)
+        .openPopup();
+    }
+
+    return () => {
+      /* 下面是 componentWillUnmount */
+
+      if (selectedStoreMarker) {
+        console.log("selectedStoreMarker", selectedStoreMarker);
+        map.removeLayer(selectedStoreMarker);
+      }
+
+      /* 上面是 componentWillUnmount */
+    };
+  }, [selectedStore]);
+
   return 0;
 };
 

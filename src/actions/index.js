@@ -33,7 +33,6 @@ export function receiveLocation(location) {
 }
 
 export function fetchShops() {
-  console.log("fetchShops");
   return (dispatch) => {
     dispatch(requestShops());
     return fetch(
@@ -41,5 +40,12 @@ export function fetchShops() {
     )
       .then((response) => response.json())
       .then((data) => dispatch(receiveShops(data)));
+  };
+}
+
+export function setMakers(markers) {
+  return {
+    type: types.SET_MARKERS,
+    markers,
   };
 }

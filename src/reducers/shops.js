@@ -44,6 +44,10 @@ const shops = (
         isFetching: false,
         data: action.data,
       });
+    case types.SET_MARKERS:
+      return Object.assign({}, state, {
+        markers: action.markers,
+      });
     default:
       return state;
   }
