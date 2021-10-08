@@ -1,5 +1,6 @@
 {
   "name": "2021-10-01",
+  "homepage": "https://wingfailam.github.io/maskmap",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
@@ -12,6 +13,7 @@
     "@types/leaflet": "1.7.2",
     "babel-polyfill": "6.26.0",
     "emotion": "11.0.0",
+    "gh-pages": "^3.2.3",
     "isomorphic-fetch": "^3.0.0",
     "leaflet": "1.7.1",
     "leaflet.locatecontrol": "^0.74.0",
@@ -30,6 +32,8 @@
     "@babel/runtime": "7.13.8"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

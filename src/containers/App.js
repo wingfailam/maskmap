@@ -44,7 +44,8 @@ const AppContainer = styled.div`
 const Left = styled.div`
   background-color: #fff;
   height: 100%;
-  width: 389px;
+  width: 400px;
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;

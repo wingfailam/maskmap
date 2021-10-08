@@ -55,13 +55,13 @@ const MaskMarkers = () => {
           "</p>" +
           "</div>" +
           "<div class='amoutLeft'>" +
-          "<img src='../svgs/child.svg' width='50px' height='50px'/>" +
+          "<img src='./svgs/child.svg' width='50px' height='50px'/>" +
           "<h4>" +
           feature.properties.mask_child +
           "</h4>" +
           "</div>" +
           "<div class='amoutRight'>" +
-          "<img src='../svgs/adult.svg' width='50px' height='50px'/>" +
+          "<img src='./svgs/adult.svg' width='50px' height='50px'/>" +
           "<h4>" +
           feature.properties.mask_adult +
           "</h4>" +
@@ -70,7 +70,7 @@ const MaskMarkers = () => {
           "<a class='tel-button' href='tel:+886" +
           feature.properties.phone +
           "'>" +
-          "<img src='../svgs/tel.svg' width='25px' height='25px'/>" +
+          "<img src='./svgs/tel.svg' width='25px' height='25px'/>" +
           "</a>" +
           "</div>" +
           "<div class='update'>" +
@@ -82,7 +82,7 @@ const MaskMarkers = () => {
           "%20" +
           feature.properties.address +
           "' target='_blank'>" +
-          "<img src='../svgs/vecotr.svg' width='20px' height='20px' />" +
+          "<img src='./svgs/vecotr.svg' width='20px' height='20px' />" +
           " 規劃路線" +
           "</a>" +
           "</div>"
@@ -157,13 +157,13 @@ const MaskMarkers = () => {
         "</p>" +
         "</div>" +
         "<div class='amoutLeft'>" +
-        "<img src='../svgs/child.svg' width='50px' height='50px'/>" +
+        "<img src='./svgs/child.svg' width='50px' height='50px'/>" +
         "<h4>" +
         selectedStore.properties.mask_child +
         "</h4>" +
         "</div>" +
         "<div class='amoutRight'>" +
-        "<img src='../svgs/adult.svg' width='50px' height='50px'/>" +
+        "<img src='./svgs/adult.svg' width='50px' height='50px'/>" +
         "<h4>" +
         selectedStore.properties.mask_adult +
         "</h4>" +
@@ -172,7 +172,7 @@ const MaskMarkers = () => {
         "<a class='tel-button' href='tel:+886" +
         selectedStore.properties.phone +
         "'>" +
-        "<img src='../svgs/tel.svg' width='25px' height='25px'/>" +
+        "<img src='./svgs/tel.svg' width='25px' height='25px'/>" +
         "</a>" +
         "</div>" +
         "<div class='update'>" +
@@ -184,7 +184,7 @@ const MaskMarkers = () => {
         "%20" +
         selectedStore.properties.address +
         "' target='_blank'>" +
-        "<img src='../svgs/vecotr.svg' width='20px' height='20px' />" +
+        "<img src='./svgs/vecotr.svg' width='20px' height='20px' />" +
         " 規劃路線" +
         "</a>" +
         "</div>";
