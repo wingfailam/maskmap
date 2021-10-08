@@ -106,6 +106,7 @@ const Right = styled.div`
 
 export default function App() {
   const page = useSelector((state) => state.rwd.page);
+  const rwd = useSelector((state) => state.rwd.width) < 768 ? true : false;
   const dispatch = useDispatch();
   const checkWidth = () => dispatch(setWidth(window.innerWidth));
   useEffect(() => {
@@ -139,7 +140,7 @@ export default function App() {
           <MaskMarkers />
         </MapContainer>
       </Right>
-      <ChangeButton />
+      {rwd ? <ChangeButton /> : ""}
     </AppContainer>
   );
 }
