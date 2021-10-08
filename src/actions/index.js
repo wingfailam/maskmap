@@ -32,6 +32,13 @@ export function receiveLocation(location) {
   };
 }
 
+export function showModal(show) {
+  return {
+    type: types.SHOW_MODAL,
+    show,
+  };
+}
+
 export function fetchShops() {
   return (dispatch) => {
     dispatch(requestShops());

@@ -2,6 +2,7 @@
 import styled from "@emotion/styled";
 import "../styles.css";
 import L from "leaflet";
+import "leaflet.locatecontrol";
 import "leaflet.markercluster";
 import {
   useMap,
@@ -14,7 +15,7 @@ import {
 } from "react-leaflet";
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { requestLocation, receiveLocation } from "../actions";
+import { requestLocation, receiveLocation, showModal } from "../actions";
 
 function createIcon(url) {
   return new L.Icon({
@@ -26,7 +27,6 @@ function createIcon(url) {
   });
 }
 
-const location_icon = createIcon("https://i.imgur.com/df9q5j6.png");
 const location_icon_blue = createIcon("https://i.imgur.com/wzWsH3D.png");
 
 const LocationMarker = () => {
@@ -40,12 +40,27 @@ const LocationMarker = () => {
 
   useEffect(() => {
     if (mounted.current === false) {
+      L.control
+        .locate({
+          keepCurrentZoomLevel: true,
+          flyTo: true,
+          showCompass: false,
+          drawCircle: false,
+          drawMarker: false,
+        })
+        .addTo(map);
       dispatch(requestLocation());
-      map.locate().on("locationfound", function (e) {
-        // setPosition(e.latlng);
-        dispatch(receiveLocation(e.latlng));
-        map.flyTo(e.latlng, map.getZoom());
-      });
+      map
+        .locate()
+        .on("locationfound", function (e) {
+          // setPosition(e.latlng);
+          dispatch(receiveLocation(e.latlng));
+          map.flyTo(e.latlng, map.getZoom());
+        })
+        .on("locationerror", (e) => {
+          dispatch(showModal(true));
+          console.log("定位失敗", e);
+        });
     } else {
       console.log("update");
     }

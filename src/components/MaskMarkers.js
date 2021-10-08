@@ -112,8 +112,6 @@ const MaskMarkers = () => {
         })
       );
       map.addLayer(markers);
-      dispatch(setMakers(markers));
-      console.log("map.addLayer(markers);", markers);
 
       /* 上面是componentDidUpdate */
     }
@@ -201,7 +199,6 @@ const MaskMarkers = () => {
       /* 下面是 componentWillUnmount */
 
       if (selectedStoreMarker) {
-        console.log("selectedStoreMarker", selectedStoreMarker);
         map.removeLayer(selectedStoreMarker);
       }
 

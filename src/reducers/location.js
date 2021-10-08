@@ -3,6 +3,7 @@ const location = (
   state = {
     isFetching: false,
     location: { lat: 25.0477541, lng: 121.5140006 },
+    showModal: false,
   },
   action
 ) => {
@@ -14,6 +15,12 @@ const location = (
         isFetching: false,
         location: action.location,
       });
+    case types.SHOW_MODAL:
+      return Object.assign({}, state, {
+        isFetching: false,
+        showModal: action.show,
+      });
+
     default:
       return state;
   }

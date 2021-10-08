@@ -14,7 +14,9 @@ import {
 import { useRef, useState, useEffect } from "react";
 import LocationMarker from "../components/LocationMarker";
 import MaskMarkers from "../components/MaskMarkers";
+import Modal from "../components/Modal";
 import Stores from "../components/Stores";
+
 // 建議使用 Thomas 設定的參數，沒有遇到 Icon 變形的問題。
 function createIcon(url) {
   return new L.Icon({
@@ -43,8 +45,11 @@ const Left = styled.div`
 `;
 
 export default function App() {
+  const token =
+    "pk.eyJ1IjoicGFuZGFvYW8iLCJhIjoiY2t1aWI0dGgwMm1oejMycTZ2YWt5dWw3OSJ9.zMxDIA087Tqzl8DdTIr0Gg";
   return (
     <AppContainer>
+      <Modal />
       <Left className="col-4">
         <Stores />
       </Left>
@@ -56,8 +61,9 @@ export default function App() {
         style={{ flex: 8 }}
       >
         <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="http://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
+          attribution='&copy; 口罩地圖 by <a href="https://github.com/wingfailam">wingfailam</a>'
+          // url="http://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
+          url="https://api.mapbox.com/styles/v1/pandaoao/ckuib6yuz54fd17qm2bkxqeqt/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicGFuZGFvYW8iLCJhIjoiY2t1aWI0dGgwMm1oejMycTZ2YWt5dWw3OSJ9.zMxDIA087Tqzl8DdTIr0Gg"
         />
 
         <LocationMarker />
