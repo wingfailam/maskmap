@@ -27,7 +27,7 @@ function createIcon(url) {
   });
 }
 
-const location_icon_blue = createIcon("https://i.imgur.com/wzWsH3D.png");
+const locationBlue = createIcon("./img/locationBlue.png");
 
 const LocationMarker = () => {
   // const [position, setPosition] = useState(null);
@@ -73,7 +73,7 @@ const LocationMarker = () => {
 
   return location === null ? null : (
     <div>
-      <Marker ref={markerRef} position={location} icon={location_icon_blue}>
+      <Marker ref={markerRef} position={location} icon={locationBlue}>
         <Popup>
           {JSON.stringify(location) ===
           JSON.stringify({ lat: 25.0477541, lng: 121.5140006 })

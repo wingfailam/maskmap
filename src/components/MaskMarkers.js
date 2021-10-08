@@ -12,8 +12,7 @@ import {
 } from "react-leaflet";
 import { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { requestShops, receiveShops, fetchShops, setMakers } from "../actions";
-import { main } from "@popperjs/core";
+import { requestShops, receiveShops, fetchShops } from "../actions";
 
 function createIcon(url) {
   return new L.Icon({
@@ -24,8 +23,10 @@ function createIcon(url) {
     // shadowSize: [41, 41]
   });
 }
+import ReactDOMServer from "react-dom/server";
 
-const location_icon = createIcon("https://i.imgur.com/df9q5j6.png");
+const locationGrey = createIcon("./img/locationGrey.png");
+const locationIconRed = createIcon("./img/locationRed.png");
 
 const MaskMarkers = () => {
   const mounted = useRef(false);
@@ -105,7 +106,7 @@ const MaskMarkers = () => {
         L.geoJSON(selectedShops, {
           pointToLayer: function (feature, latlng) {
             return L.marker(latlng, {
-              icon: location_icon,
+              icon: locationGrey,
             });
           },
           onEachFeature: onEachFeature,
@@ -188,7 +189,7 @@ const MaskMarkers = () => {
         "</a>" +
         "</div>";
       selectedStoreMarker = L.marker(reversedCoordinates, {
-        icon: location_icon,
+        icon: locationIconRed,
       })
         .addTo(map)
         .bindPopup(popup)
@@ -206,7 +207,7 @@ const MaskMarkers = () => {
     };
   }, [selectedStore]);
 
-  return 0;
+  return true;
 };
 
 export default MaskMarkers;

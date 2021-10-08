@@ -49,10 +49,3 @@ export function fetchShops() {
       .then((data) => dispatch(receiveShops(data)));
   };
 }
-
-export function setMakers(markers) {
-  return {
-    type: types.SET_MARKERS,
-    markers,
-  };
-}
