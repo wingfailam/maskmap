@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { ReactComponent as ChildIconPath } from "../svgs/child.svg";
 import { ReactComponent as AdultIconPath } from "../svgs/adult.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { selectStore } from "../actions";
+import { selectStore, setPage } from "../actions";
 
 function distance(lat1, lon1, lat2, lon2, unit) {
   if (lat1 == lat2 && lon1 == lon2) {
@@ -121,19 +121,23 @@ const store1 = {
     county: "臺中市",
     town: "南區",
     cunli: "南門里",
-    service_periods: "NNNNNNYNNNNNYYNNNNNYY"
+    service_periods: "NNNNNNYNNNNNYYNNNNNYY",
   },
   geometry: {
     type: "Point",
-    coordinates: [120.679768, 24.122218]
-  }
+    coordinates: [120.679768, 24.122218],
+  },
 };
 
 const Store = (props) => {
   const store = props.store;
   const dispatch = useDispatch();
+  const rwd = useSelector((state) => state.rwd.width) < 768 ? true : false;
   const onStoreClick = (store) => {
     dispatch(selectStore(store));
+    if (rwd) {
+      dispatch(setPage());
+    }
   };
 
   return (

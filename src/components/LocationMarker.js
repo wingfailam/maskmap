@@ -47,6 +47,7 @@ const LocationMarker = () => {
           showCompass: false,
           drawCircle: false,
           drawMarker: false,
+          icon: "fas fa-map-marker-alt",
         })
         .addTo(map);
       dispatch(requestLocation());

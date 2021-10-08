@@ -5,3 +5,5 @@ export const RECEIVE_LOCATION = "RECEIVE_LOCATION";
 export const SHOW_MODAL = "SHOW_MODAL";
 export const SELECT_STORE = "SELECT_STORE";
 export const SET_MODAL = "SET_MARKERS";
+export const SET_WIDTH = "SET_WIDTH";
+export const SET_PAGE = "SET_PAGE";

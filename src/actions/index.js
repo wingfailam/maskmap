@@ -49,3 +49,16 @@ export function fetchShops() {
       .then((data) => dispatch(receiveShops(data)));
   };
 }
+
+export function setWidth(width) {
+  return {
+    type: types.SET_WIDTH,
+    width,
+  };
+}
+
+export function setPage() {
+  return {
+    type: types.SET_PAGE,
+  };
+}
